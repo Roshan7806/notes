@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disclaimer - Study Notes</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      color: #333;
+      line-height: 1.7;
+    }
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 36px;
+      letter-spacing: 1px;
+    }
+    section {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 25px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+      font-size: 22px;
+    }
+    p {
+      margin-bottom: 18px;
+    }
+    footer {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 30px;
+    }
+    footer p {
+      margin: 0;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Disclaimer</h1>
+  </header>
+
+  <section>
+    <h2>Introduction</h2>
+    <p>Welcome to our website. This Disclaimer outlines important information regarding the usage of our Study Notes. By accessing or using this website, you agree to the terms of this Disclaimer.</p>
+
+    <h2>Accuracy of Information</h2>
+    <p>All the study notes, materials, and resources provided on this website are for educational purposes only. While we strive to keep the information accurate and up-to-date, we do not guarantee the completeness, reliability, or accuracy of the content. Use of the material is strictly at your own risk.</p>
+
+    <h2>No Professional Advice</h2>
+    <p>The notes and content available on this website should not be considered as professional or legal advice. They are intended solely for educational assistance and should not replace official textbooks, teachers, or academic guidance.</p>
+
+    <h2>External Links Disclaimer</h2>
+    <p>Our website may contain links to external websites that are not provided or maintained by us. We do not guarantee the accuracy, relevance, or reliability of any information found on these external sites.</p>
+
+    <h2>Limitation of Liability</h2>
+    <p>We will not be held liable for any loss or damage in connection with the use of our website, including but not limited to direct, indirect, incidental, or consequential damages.</p>
+
+    <h2>Educational Fair Use</h2>
+    <p>All notes are shared for educational and informational purposes only. Any misuse of the content beyond fair educational use will be the responsibility of the user.</p>
+
+    <h2>Consent</h2>
+    <p>By using our website, you hereby consent to our disclaimer and agree to its terms.</p>
+
+    <h2>Update</h2>
+    <p>This disclaimer may be updated or revised at any time without prior notice. Users are encouraged to review this page regularly to stay informed.</p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Study Notes Website | All Rights Reserved</p>
+  </footer>
+
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+  import { getStorage } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDqIeagUDtCS3I8hoQvXl01zT7xjYZcZE0",
+    authDomain: "notes-78002.firebaseapp.com",
+    projectId: "notes-78002",
+    storageBucket: "notes-78002.firebasestorage.app",
+    messagingSenderId: "992962473912",
+    appId: "1:992962473912:web:2f45bf4ef1b71faae1a94d"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const storage = getStorage(app);
+
+  console.log("✅ Firebase connected successfully");
+</script>
+
+</body>
+</html>

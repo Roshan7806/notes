@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login - StudyNotes</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #2c3e50, #3498db);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .login-container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      width: 350px;
+      text-align: center;
+      animation: fadeIn 0.7s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #3498db;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>🔒 Admin Login</h2>
+    <input type="text" id="username" placeholder="Enter Username">
+    <input type="password" id="password" placeholder="Enter Password">
+    <button onclick="login()">Login</button>
+    <div id="error-msg" class="error">Invalid Username or Password ❌</div>
+  </div>
+
+  <script>
+    function login() {
+      const user = document.getElementById("username").value.trim();
+      const pass = document.getElementById("password").value.trim();
+
+      // Fixed credentials
+      const correctUser = "RRRA@#562396";
+      const correctPass = "RRRA#@18+";
+
+      if (user === correctUser && pass === correctPass) {
+        // ✅ Save login in localStorage
+        localStorage.setItem("isLoggedIn", "true");
+        window.location.href = "admin-dashboard.html";
+      } else {
+        document.getElementById("error-msg").style.display = "block";
+      }
+    }
+  </script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+  import { getStorage } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDqIeagUDtCS3I8hoQvXl01zT7xjYZcZE0",
+    authDomain: "notes-78002.firebaseapp.com",
+    projectId: "notes-78002",
+    storageBucket: "notes-78002.firebasestorage.app",
+    messagingSenderId: "992962473912",
+    appId: "1:992962473912:web:2f45bf4ef1b71faae1a94d"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const storage = getStorage(app);
+
+  console.log("✅ Firebase connected successfully");
+</script>
+
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard - SkillSena</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f7fa;
+    }
+
+    header {
+      background: #007bff;
+      color: #fff;
+      padding: 15px 20px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    th {
+      background: #007bff;
+      color: #fff;
+    }
+
+    tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+
+    tr:hover {
+      background: #f1f1f1;
+    }
+
+    .no-data {
+      text-align: center;
+      padding: 20px;
+      font-size: 16px;
+      color: #555;
+    }
+
+    .clear-btn {
+      margin-top: 20px;
+      padding: 10px 15px;
+      background: #dc3545;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    .clear-btn:hover {
+      background: #b02a37;
+    }
+  </style>
+</head>
+<body>
+
+  <header>📊 Admin Dashboard</header>
+
+  <div class="container">
+    <h2>All Student Payments</h2>
+
+    <table id="paymentsTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>WhatsApp</th>
+          <th>Subject</th>
+          <th>UTR Number</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <!-- Data आएगा यहाँ -->
+      </tbody>
+    </table>
+
+    <div id="noData" class="no-data" style="display:none;">
+      🚫 No Payments Found
+    </div>
+
+    <button class="clear-btn" onclick="clearPayments()">Clear All Records</button>
+  </div>
+
+  <script>
+    // ✅ LOGIN PROTECTION
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+      window.location.href = "admin-login.html";
+    }
+
+    function loadPayments() {
+      let payments = JSON.parse(localStorage.getItem("payments")) || [];
+      let tableBody = document.getElementById("tableBody");
+      let noData = document.getElementById("noData");
+
+      tableBody.innerHTML = "";
+
+      if (payments.length === 0) {
+        noData.style.display = "block";
+        return;
+      } else {
+        noData.style.display = "none";
+      }
+
+      payments.forEach(p => {
+        let row = `<tr>
+          <td>${p.name}</td>
+          <td>${p.whatsapp}</td>
+          <td>${p.subject}</td>
+          <td>${p.utr}</td>
+        </tr>`;
+        tableBody.innerHTML += row;
+      });
+    }
+
+    function clearPayments() {
+      if (confirm("⚠️ Are you sure you want to clear all payment records?")) {
+        localStorage.removeItem("payments");
+        loadPayments();
+      }
+    }
+
+    // Load on page open
+    window.onload = loadPayments;
+
+    // 🔄 Auto Refresh Every 5 Seconds
+    setInterval(loadPayments, 5000);
+  </script>
+
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+  import { getStorage } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDqIeagUDtCS3I8hoQvXl01zT7xjYZcZE0",
+    authDomain: "notes-78002.firebaseapp.com",
+    projectId: "notes-78002",
+    storageBucket: "notes-78002.firebasestorage.app",
+    messagingSenderId: "992962473912",
+    appId: "1:992962473912:web:2f45bf4ef1b71faae1a94d"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const storage = getStorage(app);
+
+  console.log("✅ Firebase connected successfully");
+</script>
+
+</body>
+</html>

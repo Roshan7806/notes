@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms & Conditions - Study Notes</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.7;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(135deg, #4a90e2, #0056b3);
+      color: #fff;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    header p {
+      margin-top: 8px;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 35px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-top: 30px;
+      color: #0056b3;
+      font-size: 1.6rem;
+    }
+    ul {
+      margin: 15px 0;
+      padding-left: 20px;
+    }
+    ul li {
+      margin-bottom: 10px;
+    }
+    footer {
+      background: #222;
+      color: #aaa;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      font-size: 0.95rem;
+    }
+    footer a {
+      color: #4a90e2;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Terms & Conditions</h1>
+    <p>Effective Date: August 31, 2025</p>
+  </header>
+
+  <div class="container">
+    <p>
+      Welcome to our Study Notes website. By accessing or using our platform, you agree to be bound by the following Terms & Conditions. Please read them carefully before using our services.
+    </p>
+
+    <h2>1. Acceptance of Terms</h2>
+    <p>
+      By using this website, you agree that you have read, understood, and accepted all the terms mentioned here. If you do not agree, please do not use our services.
+    </p>
+
+    <h2>2. Use of Content</h2>
+    <ul>
+      <li>All study notes, documents, and materials provided are for educational purposes only.</li>
+      <li>You may download or purchase notes for personal use only, not for resale or redistribution.</li>
+      <li>Unauthorized sharing, copying, or commercial use of our materials is strictly prohibited.</li>
+    </ul>
+
+    <h2>3. Purchases & Payments</h2>
+    <ul>
+      <li>All purchases made on our platform are final and non-refundable unless otherwise stated.</li>
+      <li>Prices are subject to change at any time without prior notice.</li>
+    </ul>
+
+    <h2>4. Intellectual Property Rights</h2>
+    <p>
+      All notes, documents, graphics, and other materials available on this website are the intellectual property of our platform or respective authors. You are not allowed to claim ownership or distribute them without proper authorization.
+    </p>
+
+    <h2>5. Limitation of Liability</h2>
+    <p>
+      We do not guarantee that the notes or materials will ensure academic success. We are not liable for any direct or indirect damages caused by the use of our content.
+    </p>
+
+    <h2>6. Third-Party Links</h2>
+    <p>
+      Our website may contain links to third-party websites. We are not responsible for the content, policies, or services of such external sites.
+    </p>
+
+    <h2>7. Changes to Terms</h2>
+    <p>
+      We reserve the right to update or modify these Terms & Conditions at any time. Users are encouraged to review this page periodically.
+    </p>
+
+    <h2>8. Governing Law</h2>
+    <p>
+      These Terms & Conditions are governed by and construed under the laws of India. Any disputes will be handled under the jurisdiction of Indian courts.
+    </p>
+
+    <h2>9. Contact Us</h2>
+    <p>
+      If you have any questions or concerns about these Terms & Conditions, please contact us at:
+      <br>Email: <a href="mailto:support@studynotes.com">support@studynotes.com</a>
+    </p>
+  </div>
+
+  <footer>
+    &copy; 2025 Study Notes. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Disclaimer</a>
+  </footer>
+
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+  import { getStorage } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDqIeagUDtCS3I8hoQvXl01zT7xjYZcZE0",
+    authDomain: "notes-78002.firebaseapp.com",
+    projectId: "notes-78002",
+    storageBucket: "notes-78002.firebasestorage.app",
+    messagingSenderId: "992962473912",
+    appId: "1:992962473912:web:2f45bf4ef1b71faae1a94d"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const storage = getStorage(app);
+
+  console.log("✅ Firebase connected successfully");
+</script>
+
+</body>
+</html>

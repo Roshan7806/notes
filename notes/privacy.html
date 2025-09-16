@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Privacy Policy - Study Notes</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.7;
+      background: #f9fafc;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(135deg, #0072ff, #00c6ff);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    header h1 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    section {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px 30px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      animation: fadeIn 1s ease-in-out;
+    }
+    section h2 {
+      color: #0072ff;
+      margin-top: 25px;
+      font-size: 1.5rem;
+      border-left: 5px solid #00c6ff;
+      padding-left: 10px;
+    }
+    section p {
+      margin: 12px 0;
+      font-size: 1rem;
+    }
+    footer {
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+      font-size: 0.9rem;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Privacy Policy</h1>
+    <p>Effective Date: 31 August 2025</p>
+  </header>
+
+  <section>
+    <h2>1. Introduction</h2>
+    <p>Welcome to <strong>Study Notes</strong>. Your privacy is very important to us. This Privacy Policy explains how we collect, use, and protect your information when you use our website to purchase and download study materials.</p>
+
+    <h2>2. Information We Collect</h2>
+    <p>We may collect the following information from you:</p>
+    <ul>
+      <li>Name and Email Address</li>
+      <li>Purchase & Payment Details</li>
+      <li>Device Information and Browser Type</li>
+      <li>Cookies and Usage Data</li>
+    </ul>
+
+    <h2>3. How We Use Your Information</h2>
+    <p>We use your information to:</p>
+    <ul>
+      <li>Deliver study notes and resources you purchased</li>
+      <li>Improve our website experience</li>
+      <li>Provide customer support</li>
+      <li>Send important updates related to your purchase</li>
+    </ul>
+
+    <h2>4. Cookies</h2>
+    <p>We use cookies to enhance your browsing experience. Cookies help us understand how our site is being used and improve performance. You may disable cookies in your browser settings, but some features may not work properly.</p>
+
+    <h2>5. Data Security</h2>
+    <p>We take appropriate measures to protect your personal data against unauthorized access, disclosure, alteration, or destruction.</p>
+
+    <h2>6. Third-Party Services</h2>
+    <p>We may use third-party services like payment gateways (e.g., Razorpay, PayPal) or analytics tools (e.g., Google Analytics) which may collect certain information as per their own privacy policies.</p>
+
+    <h2>7. Your Rights</h2>
+    <p>You have the right to access, update, or request deletion of your personal data. For any such request, please contact us at the email below.</p>
+
+    <h2>8. Changes to This Policy</h2>
+    <p>We may update our Privacy Policy from time to time. Any changes will be posted on this page with an updated effective date.</p>
+
+    <h2>9. Contact Us</h2>
+    <p>If you have any questions or concerns about this Privacy Policy, please contact us:</p>
+    <p><strong>Email:</strong> support@studynotes.com</p>
+  </section>
+
+  <footer>
+    &copy; 2025 Study Notes. All Rights Reserved.
+  </footer>
+
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+  import { getStorage } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDqIeagUDtCS3I8hoQvXl01zT7xjYZcZE0",
+    authDomain: "notes-78002.firebaseapp.com",
+    projectId: "notes-78002",
+    storageBucket: "notes-78002.firebasestorage.app",
+    messagingSenderId: "992962473912",
+    appId: "1:992962473912:web:2f45bf4ef1b71faae1a94d"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const storage = getStorage(app);
+
+  console.log("✅ Firebase connected successfully");
+</script>
+
+</body>
+</html>

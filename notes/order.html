@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f2027;  /* gradient bg */
+      background: linear-gradient(120deg, #2c5364, #203a43, #0f2027);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      max-width: 400px;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+      transform: scale(0.7);
+      opacity: 0;
+      animation: assemble 1s forwards ease-in-out;
+    }
+
+    @keyframes assemble {
+      0% { transform: scale(0.7) translateY(-200px) rotate(-20deg); opacity: 0; }
+      50% { transform: scale(1.05) translateY(20px) rotate(5deg); opacity: 1; }
+      100% { transform: scale(1) translateY(0) rotate(0); opacity: 1; }
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 25px;
+      opacity: 0;
+      animation: glowText 1s forwards ease 0.8s;
+    }
+
+    @keyframes glowText {
+      from { opacity: 0; text-shadow: none; }
+      to { opacity: 1; text-shadow: 0 0 10px #00e6e6, 0 0 20px #00b3b3; }
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin: 10px 0 5px;
+      color: #444;
+      opacity: 0;
+      transform: translateX(-50px);
+      animation: slideIn 0.6s forwards;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 18px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      opacity: 0;
+      transform: translateX(50px);
+      animation: slideIn 0.6s forwards;
+    }
+
+    input[readonly] {
+      background: #f0f0f0;
+      cursor: not-allowed;
+    }
+
+    @keyframes slideIn {
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* staggered inputs */
+    label:nth-of-type(1), input:nth-of-type(1) { animation-delay: 1.2s; }
+    label:nth-of-type(2), input:nth-of-type(2) { animation-delay: 1.6s; }
+    label:nth-of-type(3), input:nth-of-type(3) { animation-delay: 2s; }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(45deg, #007bff, #00c6ff);
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      opacity: 0;
+      transform: scale(0.8);
+      animation: popUp 0.7s forwards 2.4s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes popUp {
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    button:hover {
+      background: linear-gradient(45deg, #0056b3, #007bff);
+      box-shadow: 0 0 15px #00e6ff, 0 0 30px #00bfff;
+    }
+
+    /* electric spark hover effect */
+    button::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: rgba(255,255,255,0.2);
+      transform: rotate(45deg);
+      transition: 0.5s;
+      opacity: 0;
+    }
+    button:hover::after {
+      left: -30%;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Complete Your Order</h2>
+    <form id="orderForm" action="payment.html" method="GET">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+      <label for="whatsapp">WhatsApp Number</label>
+      <input type="tel" id="whatsapp" name="whatsapp" placeholder="Enter WhatsApp number" required>
+
+      <label for="subject">Subject</label>
+      <input type="text" id="subject" name="subject" readonly>
+
+      <button type="submit">Proceed to Payment</button>
+    </form>
+  </div>
+
+  <script>
+    // URL se subject le lo (example: order.html?subject=Maths)
+    const urlParams = new URLSearchParams(window.location.search);
+    const subject = urlParams.get("subject");
+
+    if (subject) {
+      document.getElementById("subject").value = subject;
+    } else {
+      document.getElementById("subject").value = "Not Selected";
+    }
+  </script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+  import { getStorage } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDqIeagUDtCS3I8hoQvXl01zT7xjYZcZE0",
+    authDomain: "notes-78002.firebaseapp.com",
+    projectId: "notes-78002",
+    storageBucket: "notes-78002.firebasestorage.app",
+    messagingSenderId: "992962473912",
+    appId: "1:992962473912:web:2f45bf4ef1b71faae1a94d"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const storage = getStorage(app);
+
+  console.log("✅ Firebase connected successfully");
+</script>
+
+</body>
+</html>

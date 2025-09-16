@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - StudyNotesExam</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #f4f6f9;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(135deg, #007bff, #00c6ff);
+      padding: 60px 20px;
+      text-align: center;
+      color: #fff;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 30px;
+    }
+
+    .contact-form {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0px 6px 15px rgba(0,0,0,0.1);
+    }
+
+    .contact-form h2 {
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      color: #007bff;
+    }
+
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      outline: none;
+      transition: border 0.3s;
+    }
+
+    .contact-form input:focus, .contact-form textarea:focus {
+      border: 1px solid #007bff;
+    }
+
+    .contact-form button {
+      background: #007bff;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .contact-form button:hover {
+      background: #0056b3;
+    }
+
+    .contact-info {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0px 6px 15px rgba(0,0,0,0.1);
+    }
+
+    .contact-info h3 {
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+      color: #007bff;
+    }
+
+    .info-item {
+      margin-bottom: 15px;
+    }
+
+    .info-item strong {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+    }
+
+    .faq {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+
+    .faq h2 {
+      text-align: center;
+      font-size: 2rem;
+      color: #007bff;
+      margin-bottom: 25px;
+    }
+
+    details {
+      background: #fff;
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.08);
+      cursor: pointer;
+    }
+
+    summary {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    footer {
+      background: #111;
+      color: #aaa;
+      padding: 20px;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    footer p {
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <header>
+    <h1>Contact Us</h1>
+    <p>Have questions or need support? We're here to help you anytime.</p>
+  </header>
+
+  <!-- Contact Form + Info -->
+  <div class="container">
+    <!-- Form -->
+    <div class="contact-form">
+      <h2>Send Us a Message</h2>
+      <form>
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <input type="text" placeholder="Subject" required>
+        <textarea rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <!-- Info -->
+    <div class="contact-info">
+      <h3>Our Support</h3>
+      <div class="info-item">
+        <strong>Email:</strong>
+        <p>studynotesexam@gmail.com</p>
+      </div>
+      <div class="info-item">
+        <strong>Working Hours:</strong>
+        <p>Mon - Sat, 9:00 AM - 7:00 PM</p>
+      </div>
+      <div class="info-item">
+        <strong>Response Time:</strong>
+        <p>We usually reply within 24 hours</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>Frequently Asked Questions</h2>
+    <details>
+      <summary>How long does it take to get a response?</summary>
+      <p>We try to respond to all queries within 24 hours during working days.</p>
+    </details>
+    <details>
+      <summary>Can I get help with study materials?</summary>
+      <p>Yes, our support team can guide you with available study resources.</p>
+    </details>
+    <details>
+      <summary>Is there a helpline number?</summary>
+      <p>Currently, we provide support only through email for better tracking.</p>
+    </details>
+    <details>
+      <summary>Do you offer 24/7 support?</summary>
+      <p>No, our support is available only during working hours.</p>
+    </details>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 StudyNotesExam. All Rights Reserved.</p>
+  </footer>
+
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+  import { getStorage } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDqIeagUDtCS3I8hoQvXl01zT7xjYZcZE0",
+    authDomain: "notes-78002.firebaseapp.com",
+    projectId: "notes-78002",
+    storageBucket: "notes-78002.firebasestorage.app",
+    messagingSenderId: "992962473912",
+    appId: "1:992962473912:web:2f45bf4ef1b71faae1a94d"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const storage = getStorage(app);
+
+  console.log("✅ Firebase connected successfully");
+</script>
+
+</body>
+</html>

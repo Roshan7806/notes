@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study Notes - Only ₹10</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* --- तेरा CSS जैसा का तैसा रखा है --- */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { background: #f7f9fc; color: #333; line-height: 1.6; scroll-behavior: smooth; overflow-x:hidden; }
+    /* Navbar */
+    .navbar { position: sticky; top: 0; display: flex; justify-content: space-between; align-items: center; padding: 12px 25px; background: #2c3e50; color: #fff; z-index: 100; transform: translateY(-100%); opacity:0; animation: slideDown 1s ease forwards 0.5s, navGlow 2s ease-in-out 1.5s; }
+    .navbar .logo { font-size: 20px; font-weight: bold; }
+    .navbar ul { display: flex; gap: 20px; }
+    .navbar ul li { list-style: none; }
+    .navbar ul li a { color: #fff; text-decoration: none; transition: color 0.3s; }
+    .navbar ul li a:hover { color: #f1c40f; }
+    /* Hero */
+    .hero { text-align: center; padding: 70px 20px; background: linear-gradient(120deg, #2980b9, #6dd5fa); color: #fff; opacity:0; transform: scale(0.7); animation: zoomIn 1s ease forwards 1.2s, bgShift 6s infinite alternate ease-in-out; }
+    .hero h1 { font-size: 2.5rem; margin-bottom: 10px; animation: glowText 2s infinite alternate; }
+    .hero p { font-size: 18px; margin-bottom: 20px; }
+    .btn { padding: 10px 20px; background: #f1c40f; color: #000; text-decoration: none; border-radius: 5px; font-weight: bold; transition: 0.3s; display:inline-block; }
+    .btn:hover { background: #d4ac0d; transform: scale(1.1); }
+    /* Notes Section */
+    .notes { padding: 50px 20px; text-align: center; opacity:0; transform: translateY(50px); animation: riseUp 1s ease forwards 2s; }
+    .notes h2 { margin-bottom: 25px; }
+    .notes-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap: 20px; }
+    .note-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s; opacity:0; }
+    .note-card:nth-child(1){ animation: assembleLeft 1s ease forwards 2.5s; }
+    .note-card:nth-child(2){ animation: assembleUp 1s ease forwards 2.8s; }
+    .note-card:nth-child(3){ animation: assembleRight 1s ease forwards 3.1s; }
+    .note-card:hover { transform: translateY(-5px) scale(1.05); box-shadow:0 0 25px rgba(39,174,96,0.4); }
+    .note-card h3 { margin-bottom: 10px; }
+    .note-card button { padding: 8px 15px; border: none; background: linear-gradient(45deg,#27ae60,#2ecc71); color: #fff; border-radius: 6px; cursor: pointer; transition: background 0.3s, transform 0.3s; }
+    .note-card button:hover { background: linear-gradient(45deg,#1e8449,#27ae60); transform: scale(1.1); }
+    /* Footer */
+    footer { padding: 15px; text-align: center; background: #2c3e50; color: #fff; font-size: 14px; opacity:0; animation: fadeInGlow 1s ease forwards 3.8s, pulseGlow 3s infinite alternate ease-in-out 5s; }
+    footer a{ color:#f1c40f; text-decoration:none; margin: 0 5px; }
+    footer a:hover{ text-decoration:underline; }
+    /* Modal Styling */
+    .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; backdrop-filter: blur(6px); }
+    .modal-content { background: #fff; padding: 20px; border-radius: 12px; width: 90%; max-width: 500px; text-align: left; box-shadow: 0 5px 25px rgba(0,0,0,0.4); transform: scale(0.3) rotateX(90deg); opacity:0; animation: modalZoom 0.6s ease forwards; }
+    .modal-content h2 { margin-bottom: 15px; }
+    .book-item { display: flex; justify-content: space-between; align-items: center; padding: 8px; border-bottom: 1px solid #ddd; }
+    .book-item button { padding: 6px 12px; border: none; background: #27ae60; color: #fff; border-radius: 5px; cursor: pointer; }
+    .book-item button:hover { background: #219150; transform: scale(1.05); }
+    .close-btn { float: right; font-size: 20px; cursor: pointer; color: red; transition:0.3s; }
+    .close-btn:hover{ transform: rotate(90deg) scale(1.2); }
+    /* Animations */
+    @keyframes slideDown { to{ transform: translateY(0); opacity:1; } }
+    @keyframes zoomIn { to{ transform: scale(1); opacity:1; } }
+    @keyframes riseUp { to{ transform: translateY(0); opacity:1; } }
+    @keyframes assembleLeft { from{ transform: translateX(-200%) rotate(-30deg); opacity:0;} to{ transform:translateX(0) rotate(0); opacity:1;} }
+    @keyframes assembleRight { from{ transform: translateX(200%) rotate(30deg); opacity:0;} to{ transform:translateX(0) rotate(0); opacity:1;} }
+    @keyframes assembleUp { from{ transform: translateY(150%) scale(0.5); opacity:0;} to{ transform:translateY(0) scale(1); opacity:1;} }
+    @keyframes fadeInGlow { from{ opacity:0; text-shadow:none; } to{ opacity:1; text-shadow:0 0 15px #f1c40f, 0 0 25px #f39c12; } }
+    @keyframes glowText { from{ text-shadow:0 0 10px #fff, 0 0 20px #2980b9;} to{ text-shadow:0 0 20px #fff, 0 0 40px #6dd5fa;} }
+    @keyframes bgShift { from{ background:linear-gradient(120deg,#2980b9,#6dd5fa);} to{ background:linear-gradient(120deg,#6dd5fa,#2980b9);} }
+    @keyframes navGlow { 50%{ box-shadow:0 0 25px #f1c40f;} }
+    @keyframes pulseGlow { from{ text-shadow:0 0 10px #f1c40f;} to{ text-shadow:0 0 25px #f39c12;} }
+    @keyframes modalZoom { to{ transform: scale(1) rotateX(0); opacity:1; } }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">📚 StudyNotes</div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#notes">Notes</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="disclaimer.html">Disclaimer</a></li>
+      <li><a href="terms.html">Terms & Conditions</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Get Best Notes at Just ₹10</h1>
+    <p>Simple • Affordable • Easy to Learn</p>
+    <a href="#notes" class="btn">Explore Notes</a>
+  </section>
+
+  <!-- Notes -->
+  <section class="notes" id="notes">
+    <h2>Available Notes</h2>
+    <div class="notes-grid">
+      <div class="note-card">
+        <h3>Class 10 - All Books Notes</h3>
+        <p>₹10 Only</p>
+        <button onclick="showBooks('class10')">Buy Now</button>
+      </div>
+      <div class="note-card">
+        <h3>Class 11 - All Books Notes</h3>
+        <p>₹10 Only</p>
+        <button onclick="showBooks('class11')">Buy Now</button>
+      </div>
+      <div class="note-card">
+        <h3>Class 12 - All Books Notes</h3>
+        <p>₹10 Only</p>
+        <button onclick="showBooks('class12')">Buy Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Study Notes | All Rights Reserved</p>
+    <div class="footer-links">
+      <a href="about.html">About Us</a> | 
+      <a href="contact.html">Contact</a> | 
+      <a href="privacy.html">Privacy Policy</a> | 
+      <a href="disclaimer.html">Disclaimer</a> | 
+      <a href="terms.html">Terms & Conditions</a>
+    </div>
+    <div class="social">
+      <a href="#">Facebook</a> | 
+      <a href="#">Instagram</a> | 
+      <a href="#">YouTube</a>
+    </div>
+  </footer>
+
+  <!-- Modal -->
+  <div id="booksModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">×</span>
+      <h2 id="modalTitle">Books List</h2>
+      <div id="streamSelect"></div>
+      <div id="booksList"></div>
+    </div>
+  </div>
+
+  <script>
+    const books = {
+      class10: ["Math", "Science", "Social Science", "English", "Hindi", "Sanskrit"],
+      class11: {
+        science: ["Physics", "Chemistry", "Math", "Biology", "English", "Hindi"],
+        arts: ["History", "Political Science", "Geography", "Economics", "Sociology", "English", "Hindi"],
+        commerce: ["Accountancy", "Business Studies", "Economics", "Math", "English", "Hindi"]
+      },
+      class12: {
+        science: ["Physics", "Chemistry", "Math", "Biology", "English", "Hindi"],
+        arts: ["History", "Political Science", "Geography", "Economics", "Sociology", "English", "Hindi"],
+        commerce: ["Accountancy", "Business Studies", "Economics", "Math", "English", "Hindi"]
+      }
+    };
+
+    function showBooks(cls) {
+      document.getElementById("booksModal").style.display = "flex";
+      const title = document.getElementById("modalTitle");
+      const list = document.getElementById("booksList");
+      const streamSelect = document.getElementById("streamSelect");
+      list.innerHTML = "";
+      streamSelect.innerHTML = "";
+
+      if (cls === "class10") {
+        title.innerText = "Class 10 Books";
+        books.class10.forEach(book => {
+          list.innerHTML += `
+            <div class="book-item">
+              <span>${book}</span>
+              <a href="order.html?subject=${encodeURIComponent(book + ' - Class 10')}">
+                <button>Buy ₹10</button>
+              </a>
+            </div>`;
+        });
+      } else {
+        title.innerText = cls === "class11" ? "Class 11 Books" : "Class 12 Books";
+        streamSelect.innerHTML = `
+          <label>Select Stream: </label>
+          <select onchange="loadStream('${cls}', this.value)" class="select-stream">
+            <option value="">--Choose--</option>
+            <option value="science">Science</option>
+            <option value="arts">Arts</option>
+            <option value="commerce">Commerce</option>
+          </select>
+        `;
+      }
+    }
+
+    function loadStream(cls, stream) {
+      const list = document.getElementById("booksList");
+      list.innerHTML = "";
+      if (stream && books[cls][stream]) {
+        books[cls][stream].forEach(book => {
+          list.innerHTML += `
+            <div class="book-item">
+              <span>${book}</span>
+              <a href="order.html?subject=${encodeURIComponent(book + ' - ' + cls.toUpperCase() + ' (' + stream + ')')}">
+                <button>Buy ₹10</button>
+              </a>
+            </div>`;
+        });
+      }
+    }
+
+    function closeModal() {
+      document.getElementById("booksModal").style.display = "none";
+    }
+  </script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+  import { getStorage } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDqIeagUDtCS3I8hoQvXl01zT7xjYZcZE0",
+    authDomain: "notes-78002.firebaseapp.com",
+    projectId: "notes-78002",
+    storageBucket: "notes-78002.firebasestorage.app",
+    messagingSenderId: "992962473912",
+    appId: "1:992962473912:web:2f45bf4ef1b71faae1a94d"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const storage = getStorage(app);
+
+  console.log("✅ Firebase connected successfully");
+</script>
+
+</body>
+</html>

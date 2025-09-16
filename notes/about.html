@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - StudyNotesExam</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #f8f9fa;
+    }
+    header {
+      background: linear-gradient(135deg, #007bff, #6610f2);
+      color: white;
+      padding: 80px 20px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+    header p {
+      font-size: 1.3rem;
+    }
+    section {
+      padding: 60px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    .about, .mission, .features, .team, .contact {
+      margin-bottom: 60px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2rem;
+      color: #007bff;
+    }
+    .features-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .feature-card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+    .team-members {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    .team-member {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      width: 250px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .team-member img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+    }
+    .contact {
+      text-align: center;
+    }
+    .contact a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    footer {
+      background: #343a40;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    footer a {
+      color: #ffc107;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <header>
+    <h1>About StudyNotesExam</h1>
+    <p>Your trusted partner for exam preparation and study resources</p>
+  </header>
+
+  <!-- About Section -->
+  <section class="about">
+    <h2>Who We Are</h2>
+    <p>
+      StudyNotesExam is an educational platform dedicated to providing quality study materials, 
+      previous year question papers, practice tests, and guidance for students preparing for various exams. 
+      Our mission is to simplify learning and help students achieve their academic and career goals.
+    </p>
+  </section>
+
+  <!-- Mission Section -->
+  <section class="mission">
+    <h2>Our Mission</h2>
+    <p>
+      To empower students with accessible and affordable educational content, 
+      ensuring that everyone has the resources needed to succeed, regardless of background.
+    </p>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <h2>Why Choose Us?</h2>
+    <div class="features-list">
+      <div class="feature-card">
+        <h3>📘 Quality Notes</h3>
+        <p>Well-structured and easy-to-understand study materials.</p>
+      </div>
+      <div class="feature-card">
+        <h3>📝 Previous Papers</h3>
+        <p>Access to solved past year question papers for better practice.</p>
+      </div>
+      <div class="feature-card">
+        <h3>⏱ Mock Tests</h3>
+        <p>Real-time test environment for exam-like experience.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🎯 Career Guidance</h3>
+        <p>Expert tips to crack competitive exams and build a strong career.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="team">
+    <h2>Meet Our Team</h2>
+    <div class="team-members">
+      <div class="team-member">
+        <img src="https://via.placeholder.com/100" alt="Team Member">
+        <h4>Roshan Kumar</h4>
+        <p>Founder & Developer</p>
+      </div>
+      <div class="team-member">
+        <img src="https://via.placeholder.com/100" alt="Team Member">
+        <h4>Aditya kumar</h4>
+        <p>Content Manager</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact">
+    <h2>Contact Us</h2>
+    <p>Got questions? Reach us at <a href="mailto:studynotesexam@gmail.com">studynotesexam@gmail.com</a></p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 StudyNotesExam. All Rights Reserved.</p>
+    <p>
+      <a href="#">Facebook</a> | 
+      <a href="#">Twitter</a> | 
+      <a href="#">Instagram</a>
+    </p>
+  </footer>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+  import { getStorage } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDqIeagUDtCS3I8hoQvXl01zT7xjYZcZE0",
+    authDomain: "notes-78002.firebaseapp.com",
+    projectId: "notes-78002",
+    storageBucket: "notes-78002.firebasestorage.app",
+    messagingSenderId: "992962473912",
+    appId: "1:992962473912:web:2f45bf4ef1b71faae1a94d"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const storage = getStorage(app);
+
+  console.log("✅ Firebase connected successfully");
+</script>
+
+</body>
+</html>

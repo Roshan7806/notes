@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment - SkillSena</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f5f7fa;
+    }
+
+    .container {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      width: 360px;
+      text-align: center;
+    }
+
+    h2 { margin-bottom: 20px; color: #007bff; }
+
+    .info-box {
+      background: #f1f9ff;
+      border: 1px solid #d0e7ff;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .info-box p { margin: 6px 0; font-size: 15px; color: #333; }
+
+    .scanner {
+      margin: 20px 0;
+      border: 2px dashed #007bff;
+      border-radius: 10px;
+      padding: 10px;
+      background: #fafafa;
+    }
+
+    .scanner img {
+      width: 150px;
+      height: 150px;
+      object-fit: contain;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    button {
+      background: #007bff;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      transition: 0.3s;
+    }
+    button:hover { background: #0056b3; }
+
+    .success {
+      display: none;
+      font-size: 60px;
+      color: #28a745;
+      margin-top: 15px;
+    }
+
+    .message {
+      display: none;
+      margin-top: 15px;
+      font-size: 15px;
+      color: #333;
+      background: #e6ffe6;
+      border: 1px solid #b3ffb3;
+      padding: 10px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="paymentBox">
+    <h2>Complete Your Payment</h2>
+    <div class="info-box">
+      <p><b>Name:</b> <span id="studentName"></span></p>
+      <p><b>WhatsApp:</b> <span id="studentWhatsapp"></span></p>
+      <p><b>Subject:</b> <span id="studentSubject"></span></p>
+    </div>
+
+    <!-- Scanner (Static QR Image) -->
+    <div class="scanner">
+      <img src="upi-qr.png" alt="UPI QR Code">
+    </div>
+
+    <input type="text" id="utr" placeholder="Enter UTR / Transaction ID" required>
+    <button id="payBtn" onclick="confirmOrder(event)">Confirm Order</button>
+
+    <div class="success" id="successTick">✔</div>
+    <div class="message" id="successMessage">
+      Your order has been confirmed. The PDF will be sent to your WhatsApp within 10 minutes. Have a nice day!
+    </div>
+  </div>
+
+  <script>
+    // URL से Query Parameters निकालने वाला function
+    function getQueryParams() {
+      let params = {};
+      let queryString = window.location.search.substring(1);
+      let pairs = queryString.split("&");
+      for (let pair of pairs) {
+        let [key, value] = pair.split("=");
+        if (key) {
+          params[key] = decodeURIComponent(value.replace(/\+/g, " "));
+        }
+      }
+      return params;
+    }
+
+    // Parameters fetch करना
+    const params = getQueryParams();
+    document.getElementById("studentName").textContent = params.name || "N/A";
+    document.getElementById("studentWhatsapp").textContent = params.whatsapp || "N/A";
+    document.getElementById("studentSubject").textContent = params.subject || "N/A";
+
+    // Confirm Order
+    function confirmOrder(e) {
+      e.preventDefault();
+      let utr = document.getElementById("utr").value.trim();
+      if(utr === "") {
+        alert("⚠️ Please enter your UTR / Transaction ID!");
+        return;
+      }
+
+      // Save order in localStorage
+      let payments = JSON.parse(localStorage.getItem("payments")) || [];
+      payments.push({
+        name: params.name || "N/A",
+        whatsapp: params.whatsapp || "N/A",
+        subject: params.subject || "N/A",
+        utr: utr
+      });
+      localStorage.setItem("payments", JSON.stringify(payments));
+
+      // Hide form, show success tick & message
+      document.getElementById("utr").style.display = "none";
+      document.getElementById("payBtn").style.display = "none";
+      document.getElementById("successTick").style.display = "block";
+      document.getElementById("successMessage").style.display = "block";
+    }
+  </script>
+
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+  import { getStorage } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDqIeagUDtCS3I8hoQvXl01zT7xjYZcZE0",
+    authDomain: "notes-78002.firebaseapp.com",
+    projectId: "notes-78002",
+    storageBucket: "notes-78002.firebasestorage.app",
+    messagingSenderId: "992962473912",
+    appId: "1:992962473912:web:2f45bf4ef1b71faae1a94d"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const storage = getStorage(app);
+
+  console.log("✅ Firebase connected successfully");
+</script>
+
+</body>
+</html>
