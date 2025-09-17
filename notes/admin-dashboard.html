@@ -115,27 +115,43 @@
     <button class="clear-btn" onclick="clearPayments()">Clear All Records</button>
   </div>
 
-  <script>
-    // ✅ LOGIN PROTECTION
-    if (localStorage.getItem("isLoggedIn") !== "true") {
-      window.location.href = "admin-login.html";
-    }
+<script type="module">
+  // ✅ Firebase Imports
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+  import { getDatabase, ref, onValue, remove, set } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
 
-    function loadPayments() {
-      let payments = JSON.parse(localStorage.getItem("payments")) || [];
-      let tableBody = document.getElementById("tableBody");
-      let noData = document.getElementById("noData");
+  // ✅ Firebase Config
+  const firebaseConfig = {
+    apiKey: "AIzaSyDqIeagUDtCS3I8hoQvXl01zT7xjYZcZE0",
+    authDomain: "notes-78002.firebaseapp.com",
+    databaseURL: "https://notes-78002-default-rtdb.firebaseio.com/",
+    projectId: "notes-78002",
+    storageBucket: "notes-78002.firebasestorage.app",
+    messagingSenderId: "992962473912",
+    appId: "1:992962473912:web:2f45bf4ef1b71faae1a94d"
+  };
 
+  // ✅ Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // ✅ Load Payments from Firebase
+  function loadPayments() {
+    const tableBody = document.getElementById("tableBody");
+    const noData = document.getElementById("noData");
+
+    const paymentsRef = ref(db, "payments/");
+    onValue(paymentsRef, (snapshot) => {
       tableBody.innerHTML = "";
 
-      if (payments.length === 0) {
+      if (!snapshot.exists()) {
         noData.style.display = "block";
         return;
-      } else {
-        noData.style.display = "none";
       }
 
-      payments.forEach(p => {
+      noData.style.display = "none";
+      snapshot.forEach((childSnapshot) => {
+        const p = childSnapshot.val();
         let row = `<tr>
           <td>${p.name}</td>
           <td>${p.whatsapp}</td>
@@ -144,44 +160,21 @@
         </tr>`;
         tableBody.innerHTML += row;
       });
+    });
+  }
+
+  // ✅ Clear All Payments
+  function clearPayments() {
+    if (confirm("⚠️ Are you sure you want to clear all payment records?")) {
+      remove(ref(db, "payments/"))
+        .then(() => alert("✅ All payments cleared"))
+        .catch(err => alert("❌ Error: " + err));
     }
+  }
+  window.clearPayments = clearPayments;
 
-    function clearPayments() {
-      if (confirm("⚠️ Are you sure you want to clear all payment records?")) {
-        localStorage.removeItem("payments");
-        loadPayments();
-      }
-    }
-
-    // Load on page open
-    window.onload = loadPayments;
-
-    // 🔄 Auto Refresh Every 5 Seconds
-    setInterval(loadPayments, 5000);
-  </script>
-
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-  import { getAuth } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-  import { getStorage } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDqIeagUDtCS3I8hoQvXl01zT7xjYZcZE0",
-    authDomain: "notes-78002.firebaseapp.com",
-    projectId: "notes-78002",
-    storageBucket: "notes-78002.firebasestorage.app",
-    messagingSenderId: "992962473912",
-    appId: "1:992962473912:web:2f45bf4ef1b71faae1a94d"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-  const storage = getStorage(app);
-
-  console.log("✅ Firebase connected successfully");
+  // ✅ Page Load
+  window.onload = loadPayments;
 </script>
 
 </body>
