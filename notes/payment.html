@@ -117,29 +117,45 @@
     </div>
   </div>
 
-  <script>
-    // URL से Query Parameters निकालने वाला function
+  <script type="module">
+    // ✅ Firebase Import
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
+    // ✅ Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDqIeagUDtCS3I8hoQvXl01zT7xjYZcZE0",
+      authDomain: "notes-78002.firebaseapp.com",
+      databaseURL: "https://notes-78002-default-rtdb.firebaseio.com/",
+      projectId: "notes-78002",
+      storageBucket: "notes-78002.firebasestorage.app",
+      messagingSenderId: "992962473912",
+      appId: "1:992962473912:web:2f45bf4ef1b71faae1a94d"
+    };
+
+    // ✅ Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // ✅ Query Params Fetch
     function getQueryParams() {
       let params = {};
       let queryString = window.location.search.substring(1);
       let pairs = queryString.split("&");
       for (let pair of pairs) {
         let [key, value] = pair.split("=");
-        if (key) {
-          params[key] = decodeURIComponent(value.replace(/\+/g, " "));
-        }
+        if (key) params[key] = decodeURIComponent(value.replace(/\+/g, " "));
       }
       return params;
     }
 
-    // Parameters fetch करना
     const params = getQueryParams();
     document.getElementById("studentName").textContent = params.name || "N/A";
     document.getElementById("studentWhatsapp").textContent = params.whatsapp || "N/A";
     document.getElementById("studentSubject").textContent = params.subject || "N/A";
 
-    // Confirm Order
-    function confirmOrder(e) {
+    // ✅ Confirm Order
+    window.confirmOrder = function(e) {
       e.preventDefault();
       let utr = document.getElementById("utr").value.trim();
       if(utr === "") {
@@ -147,47 +163,25 @@
         return;
       }
 
-      // Save order in localStorage
-      let payments = JSON.parse(localStorage.getItem("payments")) || [];
-      payments.push({
+      const paymentsRef = ref(db, "payments/");
+      const newPaymentRef = push(paymentsRef);
+
+      set(newPaymentRef, {
         name: params.name || "N/A",
         whatsapp: params.whatsapp || "N/A",
         subject: params.subject || "N/A",
         utr: utr
+      }).then(() => {
+        // Hide form, show success tick & message
+        document.getElementById("utr").style.display = "none";
+        document.getElementById("payBtn").style.display = "none";
+        document.getElementById("successTick").style.display = "block";
+        document.getElementById("successMessage").style.display = "block";
+      }).catch(err => {
+        alert("❌ Error: " + err.message);
       });
-      localStorage.setItem("payments", JSON.stringify(payments));
-
-      // Hide form, show success tick & message
-      document.getElementById("utr").style.display = "none";
-      document.getElementById("payBtn").style.display = "none";
-      document.getElementById("successTick").style.display = "block";
-      document.getElementById("successMessage").style.display = "block";
     }
   </script>
-
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-  import { getAuth } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-  import { getStorage } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDqIeagUDtCS3I8hoQvXl01zT7xjYZcZE0",
-    authDomain: "notes-78002.firebaseapp.com",
-    projectId: "notes-78002",
-    storageBucket: "notes-78002.firebasestorage.app",
-    messagingSenderId: "992962473912",
-    appId: "1:992962473912:web:2f45bf4ef1b71faae1a94d"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-  const storage = getStorage(app);
-
-  console.log("✅ Firebase connected successfully");
-</script>
 
 </body>
 </html>
